@@ -1,0 +1,38 @@
+<html>
+<!doctype html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="angular.min.js"></script>
+    <script src="fsmv1.js"></script>
+</head>
+
+<body ng-app="problemSwitcher">
+<h2>Exercises</h2>
+
+<div ng-controller="MyCtrl">
+
+    <lesson>
+
+        <button ng-hide='start' ng-click='initData()'>Let's start!</button>
+        <problem ng-repeat='problem in problems'>
+            <div id='problem{{problem.id}}' ng-show='start &&Show(problem.id-1)'>
+                <p>
+                    <span>{{problem.question}}</span>
+                <div ng-repeat='choice in problem.choices'>
+                    <input type='radio' name='choices{{problem.id}}' value='{{choice.id}}' ng-model="$parent.answer">{{choice.question}}
+                </div>
+                <button id='button{{problem.id}}' ng-click='Next(problem.id);fsm.begin()'>Next</button>
+                </p>
+            </div>
+
+        </problem>
+
+
+        <result ng-show="summary"><div>正确率 {{result()}} </div></result>
+
+    </lesson>
+</div>
+</body>
+
+</html>
